@@ -5,22 +5,19 @@ const connectDB = require("./database");
 const morgan = require("morgan");
 const { rejectPath, errorHandelling } = require("./middelwares");
 const cors = require("cors");
+const path = require("path");
 
 connectDB();
 app.use(express.json());
-app.use(morgan("dev"));
-app.use("/posts", postsRoutes);
 app.use(cors());
+app.use(morgan("dev"));
 
+app.use("/posts", postsRoutes);
+app.use("/media", express.static(path.join(__dirname, "media")));
 app.all("*/", rejectPath);
 
 app.use(errorHandelling);
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.json({
-    message: err.message || "Internal Server Error",
-  });
-});
+
 app.listen(8000, () => {
   console.log("The application is running on localhost:8000");
 });

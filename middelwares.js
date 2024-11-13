@@ -4,8 +4,10 @@ const rejectPath = function (request, response, next) {
 };
 
 const errorHandelling = function (err, req, res, next) {
-  res.status(err.status);
-  res.json({ message: err.message });
+  res.status(err.status || 500);
+  res.json({
+    message: err.message || "Internal Server Error",
+  });
 };
 
 module.exports = { rejectPath, errorHandelling };

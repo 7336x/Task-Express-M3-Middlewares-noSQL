@@ -4,7 +4,7 @@ const postsRoutes = require("./api/posts/posts.routes");
 const connectDB = require("./database");
 const morgan = require("morgan");
 const { rejectPath, errorHandelling } = require("./middelwares");
-var cors = require("cors");
+const cors = require("cors");
 
 connectDB();
 app.use(express.json());
